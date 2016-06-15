@@ -96,7 +96,7 @@ default_alloc_pages(size_t n) {
                 struct Page *pp = le2page(le, page_link);
                 SetPageReserved(pp);
                 ClearPageProperty(pp);
-                list_del(pp);
+                list_del(le);
                 le = len;
             }
             if(p->property > n) {
