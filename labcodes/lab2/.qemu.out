@@ -2,7 +2,7 @@
 
 Special kernel symbols:
   entry  0xc010002a (phys)
-  etext  0xc01058cc (phys)
+  etext  0xc0105a87 (phys)
   edata  0xc0117a36 (phys)
   end    0xc0118968 (phys)
 Kernel executable memory footprint: 99KB
@@ -16,7 +16,7 @@ ebp:0xc0116f98 eip:0xc01000d0 args:0x00000000 0xffff0000 0xc0116fc4 0x00000029
     kern/init/init.c:54: grade_backtrace1+27
 ebp:0xc0116fb8 eip:0xc01000ed args:0x00000000 0xc010002a 0xffff0000 0xc010006d 
     kern/init/init.c:59: grade_backtrace0+19
-ebp:0xc0116fd8 eip:0xc010010e args:0x00000000 0x00000000 0x00000000 0xc01058e0 
+ebp:0xc0116fd8 eip:0xc010010e args:0x00000000 0x00000000 0x00000000 0xc0105aa0 
     kern/init/init.c:64: grade_backtrace+26
 ebp:0xc0116ff8 eip:0xc010007a args:0x00000000 0x00000000 0x0000ffff 0x40cf9a00 
     kern/init/init.c:29: kern_init+79
@@ -28,8 +28,38 @@ e820map:
   memory: 07ee0000, [00100000, 07fdffff], type = 1.
   memory: 00020000, [07fe0000, 07ffffff], type = 2.
   memory: 00040000, [fffc0000, ffffffff], type = 2.
-kernel panic at kern/mm/default_pmm.c:170:
-    assertion failed: p0 != p1 && p0 != p2 && p1 != p2
+check_alloc_page() succeeded!
+check_pgdir() succeeded!
+check_boot_pgdir() succeeded!
+-------------------- BEGIN --------------------
+PDE(0e0) c0000000-f8000000 38000000 urw
+  |-- PTE(38000) c0000000-f8000000 38000000 -rw
+PDE(001) fac00000-fb000000 00400000 -rw
+  |-- PTE(000e0) faf00000-fafe0000 000e0000 urw
+  |-- PTE(00001) fafeb000-fafec000 00001000 -rw
+--------------------- END ---------------------
+++ setup timer interrupts
+0: @ring 0
+0:  cs = 8
+0:  ds = 10
+0:  es = 10
+0:  ss = 10
++++ switch to  user  mode +++
+1: @ring 0
+1:  cs = 8
+1:  ds = 10
+1:  es = 10
+1:  ss = 10
++++ switch to kernel mode +++
+2: @ring 0
+2:  cs = 8
+2:  ds = 10
+2:  es = 10
+2:  ss = 10
+100 ticks
+End of Test.
+kernel panic at kern/trap/trap.c:18:
+    EOT: kernel seems ok.
 Welcome to the kernel debug monitor!!
 Type 'help' for a list of commands.
 K> 
