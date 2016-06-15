@@ -88,11 +88,12 @@ default_alloc_pages(size_t n) {
         return NULL;
     }
     list_entry_t *le = &free_list;
+    list_entry_t *len;
     while ((le = list_next(le)) != &free_list) {
         struct Page *p = le2page(le, page_link);
         if (p->property >= n) {
             for (int i = 0; i < n; ++i) {
-                list_entry_t *len = list_next(le);
+                len = list_next(le);
                 struct Page *pp = le2page(le, page_link);
                 SetPageReserved(pp);
                 ClearPageProperty(pp);
@@ -138,7 +139,7 @@ default_free_pages(struct Page *base, size_t n) {
         p->property = 0;
     }
 
-    le = list_prev(le);
+    le = list_prev(&(base->page_link));
     p = le2page(le, page_link);
     if(le!=&free_list && p==base-1){
         while(le != &free_list) {
@@ -154,6 +155,7 @@ default_free_pages(struct Page *base, size_t n) {
     }
 
     nr_free += n;
+    return;
     //list_add(&free_list, &(base->page_link));
 }
 
