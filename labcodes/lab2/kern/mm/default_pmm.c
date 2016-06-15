@@ -81,7 +81,7 @@ default_init_memmap(struct Page *base, size_t n) {
     }
     base->property = n;
     nr_free += n;
-    
+    cprintf("finish init_memmap\n");    
 }
 
 static struct Page *
