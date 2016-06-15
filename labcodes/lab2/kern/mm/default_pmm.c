@@ -73,11 +73,12 @@ default_init_memmap(struct Page *base, size_t n) {
         assert(PageReserved(p));
         p->flags = p->property = 0;
         set_page_ref(p, 0);
+        SetPageProperty(p);
+        list_add_before(&free_list, &(p->page_link));
     }
     base->property = n;
-    SetPageProperty(base);
     nr_free += n;
-    list_add(&free_list, &(base->page_link));
+    
 }
 
 static struct Page *
